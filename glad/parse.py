@@ -284,7 +284,8 @@ class Specification(object):
     def platforms(self):
         platforms = dict()
 
-        for element in self.root.find('platforms'):
+        pe = self.root.find('platforms') or []
+        for element in pe:
             platform = Platform.from_element(element)
             platforms[platform.name] = platform
 
