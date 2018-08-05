@@ -37,6 +37,8 @@ function run_test {
 
     local time=$(date +%s)
 
+    local wd=$(pwd)
+
     local output;
     output=$({
         execute ${glad} && \
@@ -46,6 +48,8 @@ function run_test {
     local status=$?
 
     time=$(($(date +%s) - ${time}))
+
+    cd "$wd"
 
     log_failure "${status}" "${output}"
     report_test "${test}" "${status}" "${time}" "${output}"
@@ -107,6 +111,7 @@ function extract {
 function execute {
     # define variables for use in test
     local tmp="$TEST_TMP"
+    local test_dir="$(dirname ${test})"
 
     eval $@
 
